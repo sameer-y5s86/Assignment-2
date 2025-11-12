@@ -1,5 +1,5 @@
 # I acknowledge the use of ChatGPT (GPT-5, OpenAI, https://chat.openai.com) in co-creating this code.
-# Rock–Paper–Scissors GUI Game (with Rules Popup)
+# Rock–Paper–Scissors GUI Game (with Rules Popup + Timer)
 # Author: Your Name
 # Date: November 2025
 
@@ -13,6 +13,8 @@ EMOJIS = {"Rock": "🪨", "Paper": "📄", "Scissors": "✂️"}
 
 player_score = 0
 computer_score = 0
+seconds_passed = 0  # timer counter
+
 
 def play(player_choice):
     """Play one round of Rock–Paper–Scissors."""
@@ -37,6 +39,7 @@ def play(player_choice):
     )
     score_label.config(text=f"Player: {player_score}    Computer: {computer_score}")
 
+
 def show_rules():
     """Display a popup with game rules."""
     rules_text = (
@@ -49,10 +52,19 @@ def show_rules():
     )
     messagebox.showinfo("How to Play", rules_text)
 
+
+def update_timer():
+    """Update the timer every second."""
+    global seconds_passed
+    seconds_passed += 1
+    timer_label.config(text=f"Time: {seconds_passed} seconds")
+    root.after(1000, update_timer)  # schedule this function again after 1 second
+
+
 # --- GUI Setup ---
 root = tk.Tk()
 root.title("Rock–Paper–Scissors Game")
-root.geometry("400x370")
+root.geometry("400x400")
 root.config(bg="#e8f0fe")  # soft blue background
 
 # Top Frame (Title + Rules button)
@@ -75,7 +87,7 @@ rules_button = tk.Button(
     bg="#f1f3f4",
     width=3,
     relief="raised",
-    command=show_rules
+    command=show_rules,
 )
 rules_button.pack(side="right")
 
@@ -138,6 +150,16 @@ score_label = tk.Label(
 )
 score_label.pack(pady=10)
 
+# Timer Label (NEW)
+timer_label = tk.Label(
+    root,
+    text="Time: 0 seconds",
+    font=("Arial", 10, "bold"),
+    bg="#e8f0fe",
+    fg="#5f6368",
+)
+timer_label.pack(pady=5)
+
 # Exit Button
 exit_button = tk.Button(
     root,
@@ -150,5 +172,8 @@ exit_button = tk.Button(
     command=root.destroy,
 )
 exit_button.pack(pady=10)
+
+# Start the timer
+update_timer()
 
 root.mainloop()
