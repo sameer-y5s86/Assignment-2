@@ -1,7 +1,7 @@
 # I acknowledge the use of ChatGPT (GPT-5, OpenAI, https://chat.openai.com) in co-creating this code.
 # Rock–Paper–Scissors GUI Game (with Rules Popup + Timer)
-# Author: Your Name
-# Date: November 2025
+# Author: Sameer Liaquat
+# Date: 12- November 2025
 
 import tkinter as tk
 from tkinter import messagebox
