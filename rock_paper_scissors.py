@@ -53,6 +53,17 @@ title_label = tk.Label(
 )
 title_label.pack(pady=15)
 
+# How to Play instructions
+how_to_play = tk.Label(
+    root,
+    text="Rock beats Scissors • Scissors beats Paper • Paper beats Rock",
+    font=("Arial", 10),
+    bg="#e8f0fe",
+    fg="#5f6368",
+)
+how_to_play.pack(pady=2)
+
+
 # Instruction
 instruction_label = tk.Label(
     root,
