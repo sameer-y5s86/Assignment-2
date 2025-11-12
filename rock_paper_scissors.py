@@ -1,9 +1,10 @@
 # I acknowledge the use of ChatGPT (GPT-5, OpenAI, https://chat.openai.com) in co-creating this code.
-# Rock–Paper–Scissors GUI Game (Improved Version)
+# Rock–Paper–Scissors GUI Game (with Rules Popup)
 # Author: Your Name
 # Date: November 2025
 
 import tkinter as tk
+from tkinter import messagebox
 import random
 
 # --- Game Logic ---
@@ -18,7 +19,6 @@ def play(player_choice):
     global player_score, computer_score
 
     computer_choice = random.choice(OPTIONS)
-    result_text = ""
 
     if player_choice == computer_choice:
         result_text = "It's a tie!"
@@ -37,23 +37,49 @@ def play(player_choice):
     )
     score_label.config(text=f"Player: {player_score}    Computer: {computer_score}")
 
+def show_rules():
+    """Display a popup with game rules."""
+    rules_text = (
+        "🎮 Rock–Paper–Scissors Rules:\n\n"
+        "• Rock beats Scissors\n"
+        "• Scissors beats Paper\n"
+        "• Paper beats Rock\n\n"
+        "Select your move — the computer will choose too.\n"
+        "Whoever wins earns a point!"
+    )
+    messagebox.showinfo("How to Play", rules_text)
+
 # --- GUI Setup ---
 root = tk.Tk()
 root.title("Rock–Paper–Scissors Game")
-root.geometry("400x350")
+root.geometry("400x370")
 root.config(bg="#e8f0fe")  # soft blue background
 
-# Title
+# Top Frame (Title + Rules button)
+top_frame = tk.Frame(root, bg="#e8f0fe")
+top_frame.pack(fill="x", pady=5, padx=10)
+
 title_label = tk.Label(
-    root,
+    top_frame,
     text="Rock–Paper–Scissors",
     font=("Arial", 16, "bold"),
     bg="#e8f0fe",
     fg="#202124",
 )
-title_label.pack(pady=15)
+title_label.pack(side="left")
 
-# How to Play instructions
+rules_button = tk.Button(
+    top_frame,
+    text="❓",
+    font=("Arial", 12, "bold"),
+    bg="#f1f3f4",
+    width=3,
+    relief="raised",
+    command=show_rules
+)
+rules_button.pack(side="right")
+
+# How to Play (static text)
 how_to_play = tk.Label(
     root,
     text="Rock beats Scissors • Scissors beats Paper • Paper beats Rock",
@@ -63,8 +89,7 @@ how_to_play = tk.Label(
 )
 how_to_play.pack(pady=2)
 
-
-# Instruction
+# Instruction Label
 instruction_label = tk.Label(
     root,
     text="Make your choice:",
